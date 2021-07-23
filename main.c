@@ -14,7 +14,6 @@ int main(void)
 	DIO_sint8_tSetPortDirection(PortA,PORT_OUTPUT);
 	DIO_sint8_tSetPortDirection(PortC,PORT_INPUT);
 
-    /* Replace with your application code */
     while (1) 
     {
 		if(DIO_sint8_t_tGetPinValue(PortC,PIN0)==PIN_HIGH)
