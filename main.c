@@ -11,23 +11,27 @@
 #include"DIO_Int.h"
 int main(void)
 {
+	uint8_t flag=0;
 	DIO_sint8_tSetPortDirection(PortA,PORT_OUTPUT);
 	DIO_sint8_tSetPortDirection(PortC,PORT_INPUT);
 
     /* Replace with your application code */
     while (1) 
     {
-		if(DIO_sint8_t_tGetPinValue(PortC,PIN0)==PIN_HIGH)
+		if((DIO_sint8_t_tGetPinValue(PortC,PIN0)==PIN_HIGH)&&flag==0)
 		{
 			for(uint32_t i=0;i<72000;i++); ///                           for debouncing 
 			if(DIO_sint8_t_tGetPinValue(PortC,0)==PIN_HIGH)
 			{
 				DIO_sint8_tTogglePin(PortA,PIN0);
-				while(DIO_sint8_t_tGetPinValue(PortC,PIN0)==1);
+				flag=1;
 			}
 
 		}
-		
+		if((flag==1)&&DIO_sint8_t_tGetPinValue(PortC,PIN0)==PIN_LOW)
+		{
+			flag=0;
+		}
 			
     }
 }
